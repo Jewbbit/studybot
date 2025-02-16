@@ -7,7 +7,7 @@ from flask_cors import CORS  # CORS 설정
 app = Flask(__name__)
 CORS(app)  # 모든 도메인에서 API 접근 허용
 
-# Google Gemini API 키 리스트
+# ✅ Google Gemini API 키 리스트
 API_KEYS = [
     os.getenv("GOOGLE_GEMINI_API_KEY_1"),
     os.getenv("GOOGLE_GEMINI_API_KEY_2"),
@@ -20,7 +20,7 @@ API_KEYS = [
 ]
 CURRENT_API_INDEX = 0  # API 키 순환 인덱스
 
-# Notion API 설정
+# ✅ Notion API 설정
 NOTION_API_KEY = os.getenv("NOTION_API_KEY")
 NOTION_DATABASE_ID = os.getenv("NOTION_DATABASE_ID")
 HEADERS = {
@@ -42,7 +42,7 @@ def explain_concept():
     if not concept:
         return jsonify({"error": "개념이 입력되지 않았습니다."}), 400
 
-    # AI API 호출 (Google Gemini 사용)
+    # ✅ AI API 호출 (Google Gemini 사용)
     ai_response = None
     for _ in range(len(API_KEYS)):  # API 키를 순환하며 사용
         api_key = API_KEYS[CURRENT_API_INDEX]
@@ -64,7 +64,7 @@ def explain_concept():
     if not ai_response:
         return jsonify({"error": "AI 응답을 가져오지 못했습니다."}), 500
 
-    # Notion에 저장
+    # ✅ Notion에 저장
     notion_success = save_to_notion(concept, ai_response)
 
     return jsonify({

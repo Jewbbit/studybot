@@ -126,5 +126,9 @@ def save_to_notion(concept, explanation):
     response = requests.post("https://api.notion.com/v1/pages", headers=HEADERS, json=data)
     return response.status_code == 200
 
+# ✅ WSGI 지원 추가 (Vercel에서 실행 가능하도록 설정)
+def handler(event, context):
+    return app
+
 if __name__ == "__main__":
     app.run(debug=True)
